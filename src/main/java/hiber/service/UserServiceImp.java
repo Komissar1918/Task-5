@@ -26,4 +26,10 @@ public class UserServiceImp implements UserService {
       return userDao.listUsers();
    }
 
+    @Override
+    public List<User> find(int series, String model) {
+        return userDao.find(series,model);
+    }
+
+
 }

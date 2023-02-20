@@ -14,28 +14,41 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-   @Override
-   public void add(User user) {
-      sessionFactory.getCurrentSession().save(user);
-   }
+    @Override
+    public User add(User user) {
+        Long id = (Long) sessionFactory.getCurrentSession().save(user);
+        user.setId(id);
+        return user;
+    }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
-   }
-   @Transactional
-   public List<User> find(int series, String model){
-      Session session=sessionFactory.getCurrentSession();
-      Query<User> query = session.createQuery(
-              "from User where car.series = :series and car.model = :model");
-      query.setParameter("series", series);
-      query.setParameter("model", model);
-      return query.getResultList();
-   }
+
+    public void remove(User user) {
+        sessionFactory.getCurrentSession().delete(user);
+    }
+
+
+    public void update(User user) {
+        sessionFactory.getCurrentSession().update(user);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> listUsers() {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<User> find(int series, String model) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery(
+                "from User where car.series = :series and car.model = :model");
+        query.setParameter("series", series);
+        query.setParameter("model", model);
+        return query.getResultList();
+    }
 
 }

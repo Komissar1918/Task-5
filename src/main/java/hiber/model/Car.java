@@ -10,11 +10,11 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name="series")
+    @Column(name = "series")
     private int series;
     @Column(name = "model")
     private String model;
-    @OneToOne(mappedBy = "car")
+    @OneToOne(mappedBy = "car", orphanRemoval = true)
     private User user;
 
 
@@ -50,11 +50,11 @@ public class Car {
         this.model = model;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }

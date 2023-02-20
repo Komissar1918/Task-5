@@ -20,9 +20,8 @@ public class User {
 
    @Column(name = "email")
    private String email;
-   @OneToOne
-   @JoinColumn(name = "car")
-   @Cascade(org.hibernate.annotations.CascadeType.ALL)
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "car_id")
    private Car car;
 
 
